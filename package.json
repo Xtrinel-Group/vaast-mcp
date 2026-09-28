@@ -1,0 +1,48 @@
+{
+  "name": "@xtrinel/vaast-mcp",
+  "version": "0.1.0",
+  "description": "MCP server shim for VAAST - provides read-only access to local VAAST data for AI agents",
+  "main": "dist/index.js",
+  "bin": {
+    "vaast-mcp": "dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "vaast",
+    "security",
+    "ai-agent"
+  ],
+  "mcpName": "com.xtrinel/vaast",
+  "author": "Xtrinel",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Xtrinel-Group/vaast-app.git",
+    "directory": "vaast-mcp"
+  },
+  "homepage": "https://xtrinel.com",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md",
+    "server.json"
+  ]
+}

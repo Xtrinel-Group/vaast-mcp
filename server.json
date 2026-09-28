@@ -1,0 +1,80 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schema/registry/v1/server.schema.json",
+  "name": "com.xtrinel/vaast",
+  "displayName": "VAAST",
+  "description": "Read-only access to VAAST vulnerability scan findings, workspaces, and targets for AI agents",
+  "icon": "https://xtrinel.com/icons/vaast-icon.svg",
+  "categories": ["security", "data-access"],
+  "homepage": "https://xtrinel.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Xtrinel-Group/vaast-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Xtrinel-Group/vaast-app/issues"
+  },
+  "license": "Apache-2.0",
+  "npmPackage": "@xtrinel/vaast-mcp",
+  "runtime": {
+    "command": "npx",
+    "args": ["-y", "@xtrinel/vaast-mcp"]
+  },
+  "security": {
+    "readOnly": true,
+    "localOnly": true,
+    "authentication": "bearer-token"
+  },
+  "capabilities": {
+    "tools": {
+      "list_workspaces": {
+        "description": "List all VAAST workspaces (local SQLite)",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "get_findings": {
+        "description": "Get scan findings for a workspace",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "workspace_id": {
+              "type": "string",
+              "description": "Workspace ID (from list_workspaces)"
+            }
+          },
+          "required": ["workspace_id"]
+        }
+      },
+      "get_scan_status": {
+        "description": "Get current scan status",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "list_targets": {
+        "description": "List registered scan targets",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  },
+  "requirements": {
+    "vaast": {
+      "version": ">=0.3.0",
+      "description": "VAAST must be running with MCP server started (MCP tab)"
+    }
+  },
+  "notes": [
+    "DNS verification required: Add TXT record `mcp-registry-verify=<token>` to xtrinel.com",
+    "VAAST must be running locally with MCP server started",
+    "Free for all users (no plan requirement)",
+    "Bearer token stored in ~/.vaast/mcp.json"
+  ]
+}
