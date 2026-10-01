@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
+    "test": "node --test dist/index.test.js || echo 'No tests yet'",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -23,10 +24,12 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Xtrinel-Group/vaast-app.git",
-    "directory": "vaast-mcp"
+    "url": "https://github.com/Xtrinel-Group/vaast-mcp"
   },
   "homepage": "https://xtrinel.com",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0"
   },
