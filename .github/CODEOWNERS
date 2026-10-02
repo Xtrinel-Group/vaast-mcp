@@ -1,0 +1,5 @@
+# Release workflow, package metadata, and registry config require maintainer review
+*                     @Xtrinel-Group/mcp-maintainer
+/.github/workflows/   @Xtrinel-Group/mcp-maintainer
+/package.json         @Xtrinel-Group/mcp-maintainer
+/server.json          @Xtrinel-Group/mcp-maintainer
