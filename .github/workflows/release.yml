@@ -17,11 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
+      # No registry-url: it writes an .npmrc with a placeholder NODE_AUTH_TOKEN
+      # that can override trusted publishing (OIDC). npmjs.org is the default.
       - name: Setup Node.js 22
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
 
       - name: Upgrade npm to latest
         run: npm install -g npm@latest
@@ -74,8 +75,11 @@ jobs:
 
           echo "✓ Version consistency verified: $TAG_VERSION"
 
+      # Trusted publishing (OIDC). Provenance is attached automatically.
       - name: Publish to npm (trusted publishing)
-        run: npm publish --access public --provenance
+        run: npm publish --access public
+        env:
+          NPM_CONFIG_LOGLEVEL: verbose
 
       - name: Wait for package availability
         run: |
@@ -96,18 +100,19 @@ jobs:
             sleep 10
           done
 
-          echo "Error: Package not available after ${MAX_ATTEMPTS}0s"
+          echo "Error: Package not available after $((MAX_ATTEMPTS * 10))s"
           exit 1
 
+      # mcp-publisher is released from the modelcontextprotocol/registry repo.
+      # TODO: pin to a specific release version + verify checksum.
       - name: Install mcp-publisher
         run: |
-          curl -fsSL https://github.com/modelcontextprotocol/mcp-publisher/releases/download/v1.8.1/mcp-publisher_Linux_x86_64.tar.gz | tar xz
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
           chmod +x mcp-publisher
-          ./mcp-publisher --version
+          ./mcp-publisher --help
 
       - name: Login to MCP Registry (DNS)
-        run: |
-          ./mcp-publisher login dns --domain xtrinel.com --private-key "$MCP_DNS_PRIVATE_KEY"
+        run: ./mcp-publisher login dns --domain xtrinel.com -private-key "$MCP_DNS_PRIVATE_KEY"
         env:
           MCP_DNS_PRIVATE_KEY: ${{ secrets.MCP_DNS_PRIVATE_KEY }}
 
