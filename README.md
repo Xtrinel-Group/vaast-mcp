@@ -16,7 +16,7 @@
 - **Read-only**: No scan launching, no deletion, no modification
 - **Your data stays local**: All queries run against your local VAAST SQLite database
 - **Bearer token auth**: Token regenerated per VAAST session, read from `~/.vaast/mcp.json`
-- **No data exfiltration**: The shim has no network access except to `localhost`
+- **No data exfiltration**: The shim itself only talks to `127.0.0.1`; any account data (such as `list_targets`) is fetched by the VAAST app, not the shim
 
 ## Available Tools
 
@@ -25,7 +25,7 @@
 | `list_workspaces` | List all VAAST workspaces (local SQLite) |
 | `get_findings` | Get scan findings for a workspace |
 | `get_scan_status` | Get current scan status |
-| `list_targets` | List registered scan targets (via Xtrinel API) |
+| `list_targets` | List registered scan targets (fetched by the VAAST app from your Xtrinel account) |
 
 All tools are read-only. No scanning, installation, or deletion capabilities.
 
@@ -40,18 +40,16 @@ All tools are read-only. No scanning, installation, or deletion capabilities.
 ### Claude Code
 
 ```bash
-claude mcp add vaast
+claude mcp add vaast -- npx -y @xtrinel/vaast-mcp
 ```
 
-When prompted, use:
-- **Command**: `npx -y @xtrinel/vaast-mcp` (after package is published)
-- **Local dev**: `node /path/to/vaast-mcp/dist/index.js`
+For a local build, use `claude mcp add vaast -- node /path/to/vaast-mcp/dist/index.js` instead.
 
 ### Claude Desktop
 
 Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
-**After npm publish:**
+**From npm:**
 ```json
 {
   "mcpServers": {
@@ -63,7 +61,7 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
 }
 ```
 
-**Local development (before publish):**
+**Local build:**
 ```json
 {
   "mcpServers": {
@@ -168,7 +166,7 @@ npx @modelcontextprotocol/inspector node dist/index.js
 
 ```bash
 # Clone and install
-git clone <repo>
+git clone https://github.com/Xtrinel-Group/vaast-mcp.git
 cd vaast-mcp
 npm install
 

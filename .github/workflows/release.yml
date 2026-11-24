@@ -112,7 +112,7 @@ jobs:
           ./mcp-publisher --help
 
       - name: Login to MCP Registry (DNS)
-        run: ./mcp-publisher login dns --domain xtrinel.com -private-key "$MCP_DNS_PRIVATE_KEY"
+        run: ./mcp-publisher login dns --domain xtrinel.com --private-key "$MCP_DNS_PRIVATE_KEY"
         env:
           MCP_DNS_PRIVATE_KEY: ${{ secrets.MCP_DNS_PRIVATE_KEY }}
 
