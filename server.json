@@ -1,7 +1,13 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.xtrinel/vaast",
+  "title": "VAAST",
   "description": "Read-only access to VAAST vulnerability scan findings, workspaces, and targets for AI agents",
+  "repository": {
+    "url": "https://github.com/Xtrinel-Group/vaast-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://xtrinel.com",
   "version": "0.1.0",
   "packages": [
     {

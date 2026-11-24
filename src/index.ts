@@ -14,6 +14,9 @@ import { ListToolsRequestSchema, CallToolRequestSchema } from '@modelcontextprot
 import { promises as fs } from 'fs';
 import { homedir } from 'os';
 import { join } from 'path';
+import { createRequire } from 'module';
+
+const { version } = createRequire(import.meta.url)('../package.json') as { version: string };
 
 interface McpSessionInfo {
   port: number;
@@ -75,7 +78,7 @@ async function main() {
   const server = new Server(
     {
       name: 'vaast-mcp-server',
-      version: '0.1.0',
+      version,
     },
     {
       capabilities: {
