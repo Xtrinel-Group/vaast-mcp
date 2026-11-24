@@ -10,6 +10,12 @@ The VAAST MCP server provides **read-only** access to local scan data. It expose
 - Deleting workspaces or findings
 - Modifying any VAAST configuration
 
+The `vaast-mcp` shim also enforces this on its own side. It only lists and
+forwards the tools in its allowlist (`list_workspaces`, `get_findings`,
+`get_scan_status`, `list_targets`, see `src/tools.ts`). Calls to any other
+tool are rejected before they reach VAAST, so the read-only guarantee can be
+checked from this repository without relying on the VAAST app.
+
 ### Local-Only Network Binding
 
 The VAAST MCP server binds exclusively to `127.0.0.1` (localhost). It is **never accessible** from your local network or the internet. All MCP traffic stays on your machine.

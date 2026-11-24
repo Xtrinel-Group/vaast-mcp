@@ -13,7 +13,7 @@
 ### Security Model
 
 - **Local only**: Connects only to `127.0.0.1` — never touches the network
-- **Read-only**: No scan launching, no deletion, no modification
+- **Read-only**: No scan launching, no deletion, no modification. The shim enforces this itself with an allowlist of the four tools below ([`src/tools.ts`](src/tools.ts)); any other tool is hidden from `tools/list` and rejected without being forwarded to VAAST
 - **Your data stays local**: All queries run against your local VAAST SQLite database
 - **Bearer token auth**: Token regenerated per VAAST session, read from `~/.vaast/mcp.json`
 - **No data exfiltration**: The shim itself only talks to `127.0.0.1`; any account data (such as `list_targets`) is fetched by the VAAST app, not the shim

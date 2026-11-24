@@ -1,6 +1,6 @@
 {
   "name": "@xtrinel/vaast-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "MCP server shim for VAAST - provides read-only access to local VAAST data for AI agents",
   "main": "dist/index.js",
   "bin": {
@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "test": "node --test dist/index.test.js || echo 'No tests yet'",
+    "test": "node --test dist/*.test.js",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -43,6 +43,8 @@
   "files": [
     "dist/**/*.js",
     "dist/**/*.d.ts",
+    "!dist/**/*.test.js",
+    "!dist/**/*.test.d.ts",
     "README.md",
     "LICENSE",
     "SECURITY.md",
